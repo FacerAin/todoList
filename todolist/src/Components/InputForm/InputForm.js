@@ -1,6 +1,6 @@
 import React from 'react';
 import './InputForm.css';
-
+import $ from 'jquery' 
 class InputFrom extends React.Component{
     constructor(props){
         super(props)
@@ -15,6 +15,8 @@ class InputFrom extends React.Component{
     }
     handleSubmit(event){
         console.log(`${this.state.title}send`)
+        this.props.inputTodo(this.state.title)
+        $('.InputForm-fields input').val('')
         event.preventDefault()
     }
     render(){
