@@ -2,14 +2,29 @@ import React from 'react';
 import './InputForm.css';
 
 class InputFrom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            title: ''
+        }
+        this.handleTitleChange = this.handleTitleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    handleTitleChange(event){
+        this.setState({title: event.target.value})
+    }
+    handleSubmit(event){
+        console.log(`${this.state.title}send`)
+        event.preventDefault()
+    }
     render(){
         return(
             <div className="InputForm">
                 <div className="InputForm-fields">
-                    <input placeholder="할일" />
+                    <input onChange={this.handleTitleChange} placeholder="할일" />
                 </div>
                 <div className="InputForm-submit">
-                    <a>추가</a>
+                    <a onClick={this.handleSubmit}>추가</a>
                 </div>
 
             </div>
