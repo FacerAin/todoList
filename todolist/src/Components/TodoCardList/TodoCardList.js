@@ -7,7 +7,7 @@ class TodoCardList extends React.Component{
             <div className="TodoCardList">
                 {
                     this.props.todocardlist.map(todo => {
-                        return <TodoCard key={todo.num} todo={todo}/>
+                        return <TodoCard id={todo.num} key={todo.num} todo={todo}/>
                     })
                 }
             </div>

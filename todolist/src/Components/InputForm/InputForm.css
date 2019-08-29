@@ -1,3 +1,10 @@
 .InputForm {
     text-align: center;
+    border: 3px solid #f1f1f1;
+    width: 50%;
+    margin: 0 auto;
+    background-color: #99e9f2;
   }
+.InputForm-fields{
+  margin: 20px;
+}
