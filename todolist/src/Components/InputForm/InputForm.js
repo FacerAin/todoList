@@ -18,11 +18,13 @@ class InputFrom extends React.Component{
         super(props)
         this.state = {
             date: new Date(),
-            title: ''
+            title: '',
+            description: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.clearHandle = this.clearHandle.bind(this)
         this.handleTitleChange = this.handleTitleChange.bind(this)
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
     }
     handleTitleChange(event){
@@ -30,11 +32,24 @@ class InputFrom extends React.Component{
             title: event.target.value
         })
     }
+    handleDescriptionChange(event){
+        this.setState({
+            description: event.target.value
+        })
+    }
+    handleDateChange(date){
+        this.setState({
+            date: date
+        })
+
+    }
     clearHandle(){
         $('#title-textarea').val('')
+        $('#description-textarea').val('')
         this.setState ({
             title: '',
-            date: new Date()
+            date: new Date(),
+            description: ''
         })
     }
     handleSubmit(event){
@@ -45,18 +60,14 @@ class InputFrom extends React.Component{
         event.preventDefault()
 
     }
-    handleDateChange(date){
-        this.setState({
-            date: date
-        })
 
-    }
     render(){
         return(
             <div>
                 <form className="InputForm" onSubmit={this.handleSubmit}>
                 <div className="InputForm-fields">
                     <TextField id="title-textarea" required label="제목" margin="normal" name='title' onChange={this.handleTitleChange}/>
+                    <TextField id="description-textarea" required label="설명" margin="normal" name='description' onChange={this.handleDescriptionChange}/>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker value={this.state.date} variant="inline" format="yyyy/MM/dd" name='date' onChange={this.handleDateChange} />
                     </MuiPickersUtilsProvider>

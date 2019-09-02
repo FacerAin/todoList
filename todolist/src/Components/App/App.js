@@ -13,7 +13,7 @@ class App extends React.Component{
     super(props)
     this.state = {
       currentNum : 1,
-      TodoCardList: [{num:1,title: 'test1',date: new Date()}]
+      TodoCardList: [{num:1,title: 'test1',date: new Date(),description:'test Description'}]
     }
     this.inputTodo = this.inputTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
@@ -23,7 +23,8 @@ class App extends React.Component{
     let todo = {
       num : this.state.currentNum+1,
       title: state.title,
-      date: state.date
+      date: state.date,
+      description: state.description
     }
 
     todolist.push(todo)
