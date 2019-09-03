@@ -67,7 +67,7 @@ class InputFrom extends React.Component{
                 <form className="InputForm" onSubmit={this.handleSubmit}>
                 <div className="InputForm-fields">
                     <TextField id="title-textarea" required label="제목" margin="normal" name='title' onChange={this.handleTitleChange}/>
-                    <TextField id="description-textarea" required label="설명" margin="normal" name='description' onChange={this.handleDescriptionChange}/>
+                    <TextField id="description-textarea" label="설명" margin="normal" name='description' onChange={this.handleDescriptionChange}/>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker value={this.state.date} variant="inline" format="yyyy/MM/dd" name='date' onChange={this.handleDateChange} />
                     </MuiPickersUtilsProvider>
