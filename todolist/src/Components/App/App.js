@@ -8,6 +8,16 @@ import './App.css';
 import InputForm from '../InputForm/InputForm'
 import TodoCardList from '../TodoCardList/TodoCardList'
 import TodoCard from '../TodoCard/TodoCard'
+import AddIcon from '@material-ui/icons/Add';
+import {Fab} from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+
+
 class App extends React.Component{
   constructor(props){
     super(props)
@@ -50,7 +60,12 @@ class App extends React.Component{
             return <TodoCard removeTodo={this.removeTodo} id = {todo.num} key = {todo.num} todo = {todo} />
           })
         }
+      <Fab color="primary" aria-label="add">
+      <AddIcon />
+      </Fab>
+      
       </div>
+
     </div>
   );
   }
