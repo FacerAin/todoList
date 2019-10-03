@@ -53,3 +53,4 @@ const savedata = (res,req)=>{
         })
     }
 }
+module.exports = savedata

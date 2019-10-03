@@ -1,0 +1,12 @@
+.topnav{
+    background-color: black;
+    overflow: hidden;
+    height: 3rem;
+    margin: 0 0 2rem 0;
+}
+.apptitle{
+    text-align: center;
+    color: white;
+    padding: 0.5rem 0.5rem;
+    font-size: 2rem;
+}

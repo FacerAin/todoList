@@ -1,6 +1,39 @@
 .TodoCard{
-    border: 3px solid #f1f1f1;
-    width: 50%;
-    margin: 0 auto;
+    border: 1px solid black;
+    width: 30%;
+    margin: 0.3em auto;
     padding: 10px;
+}
+.ToggleMenu{
+    display:none;
+    margin: 0 20%;
+    position: relative;
+}
+.Container-top{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin: 0.5em 2em 1em 2em;
+    border-bottom: 1.5px solid black;
+}
+.Container-top::before{
+    display : block;
+    width: 25%;
+
+}
+.TodoTitle{
+    padding: 20px;
+    font-size: 1.5rem;
+}
+.TodoDay{
+    padding-top: 20px;
+}
+.TodoDate{
+    display: inline-block;
+    position: relative;
+    right: 15%;
+    margin: 0 20px;
+}
+.complete{
+    text-decoration: line-through;
 }

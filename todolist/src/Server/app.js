@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const api = require('./routes/index')
+const api = require('./api')
 
 app.use(bodyParser.json())
 app.use('/api',api)

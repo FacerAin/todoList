@@ -1,8 +1,6 @@
-/*Todo
-*/
 import $ from 'jquery' 
 import React from 'react';
-import './InputForm.css';
+import './EditForm.css';
 import DateFnsUtils from "@date-io/date-fns";
 import {
   DatePicker,
@@ -12,21 +10,32 @@ import {
 } from "@material-ui/pickers";
 import TextField from '@material-ui/core/TextField';
 
-class InputFrom extends React.Component{
+class EditFrom extends React.Component{
     constructor(props){
         super(props)
         this.state = {  
             date: new Date(),
             title: '',
-            description: ''
+            description: '',
+            num: 0
         }
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.clearHandle = this.clearHandle.bind(this)
         this.handleTitleChange = this.handleTitleChange.bind(this)
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
     }
-
+    componentDidUpdate(){
+        if(this.state.num !== this.props.todo[0].num){
+        this.setState({
+            num: this.props.todo[0].num,
+            date: this.props.todo[0].date,
+            title: this.props.todo[0].title,
+            description: this.props.todo[0].description
+        })
+        console.log("Mount")
+        console.log(this.state)
+    }
+    }
     handleTitleChange(event){
         this.setState({
             title: event.target.value
@@ -42,22 +51,12 @@ class InputFrom extends React.Component{
             date: date
         })
     }
-    clearHandle(){
-        $('#title-textarea').val('')
-        $('#description-textarea').val('')
-        this.setState ({
-            title: '',
-            date: new Date(),
-            description: ''
-        })
-    }
     handleSubmit(event){
         if(this.state.title){
-        this.props.inputTodo(this.state)
-        this.clearHandle()
-        }
-        event.preventDefault()
-        this.props.onClose()
+            this.props.editTodo(this.state)
+            }
+            event.preventDefault()
+           this.props.onClose()
     }
 
     render(){
@@ -65,10 +64,10 @@ class InputFrom extends React.Component{
             <div>
                 <form className="InputForm" onSubmit={this.handleSubmit}>
                 <div className="InputForm-fields">
-                    <TextField id="title-textarea" required label="제목" margin="normal" name='title' onChange={this.handleTitleChange}/>
-                    <TextField id="description-textarea" label="설명" margin="normal" name='description' onChange={this.handleDescriptionChange}/>
+                    <TextField id="title-textarea" value={this.state.title} required label="제목" margin="normal" name='title' onChange={this.handleTitleChange}/>
+                    <TextField id="description-textarea" value={this.state.description} label="설명" margin="normal" name='description' onChange={this.handleDescriptionChange}/>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker value={this.state.date} variant="inline" format="yyyy/MM/dd" name='date' onChange={this.handleDateChange} />
+                    <DatePicker id="datepicker-area" value={this.state.date} variant="inline" format="yyyy/MM/dd" name='date' onChange={this.handleDateChange} />
                     </MuiPickersUtilsProvider>
                 </div>
                 <div className="InputForm-submit">
@@ -80,4 +79,4 @@ class InputFrom extends React.Component{
     }
 }
 
-export default InputFrom
+export default EditFrom
