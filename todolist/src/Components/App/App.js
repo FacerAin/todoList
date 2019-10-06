@@ -1,4 +1,5 @@
 /*Todo
+Todo가 비었을 때 예외처리
 */
 import React from 'react';
 import './App.css';
@@ -23,7 +24,7 @@ class App extends React.Component{
     this.state = {
       openInput: false,
       openEdit: false,
-      currentNum : 1,
+      //currentNum : 1,
       TodoCardList: [{num:1,title: 'test1',date: "10/06/2019",description:'test Description',complete:false}],
       presentTodo: [{num:1,title: 'test1',date: "10/06/2019",description:'test Description',complete:false}]
     }
@@ -53,7 +54,11 @@ class App extends React.Component{
       traditional: true,
       processData: true,})
       .done(function(response) {
-        self.setState({TodoCardList:response})
+        self.setState({TodoCardList:response,
+          currentNum: response.length
+        })
+        console.log('setstate')
+        console.log(self.state)
       })
       .fail( function(error) {
         console.log('error')
@@ -115,6 +120,7 @@ savetodo(){
     this.setState({
       TodoCardList: todolist.filter(todo => todo.num !== id)
     })
+    this.savetodo()
   }
   completeTodo(id,Iscomplete){
     const todolist = this.state.TodoCardList
