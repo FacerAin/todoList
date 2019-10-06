@@ -1,34 +1,33 @@
 /*Todo
-1.InputForm, TodoCard 디자인 초안
-2. 중요도 표시, 완료 표시 토글 이용
-3. 수정기능 구현
 */
 import React from 'react';
 import './App.css';
+import $ from 'jquery' 
 import InputForm from '../InputForm/InputForm'
 import EditForm from '../EditForm/EditForm'
 import TodoCard from '../TodoCard/TodoCard'
 import AddIcon from '@material-ui/icons/Add';
 import {Fab} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import Slide from '@material-ui/core/Slide';
+import {format } from 'date-fns'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 class App extends React.Component{
+
   constructor(props){
     super(props)
     this.state = {
       openInput: false,
       openEdit: false,
       currentNum : 1,
-      TodoCardList: [{num:1,title: 'test1',date: new Date(),description:'test Description',complete:false}],
-      presentTodo: [{num:1,title: 'test1',date: new Date(),description:'test Description',complete:false}]
+      TodoCardList: [{num:1,title: 'test1',date: "10/06/2019",description:'test Description',complete:false}],
+      presentTodo: [{num:1,title: 'test1',date: "10/06/2019",description:'test Description',complete:false}]
     }
-    
+    //console.log(format(this.state.TodoCardList[0].date,'MM/dd/yyyy'))
     this.inputTodo = this.inputTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
     this.editTodo = this.editTodo.bind(this)
@@ -38,27 +37,74 @@ class App extends React.Component{
     this.handleCloseInput = this.handleCloseInput.bind(this)
     this.handleCloseEdit = this.handleCloseEdit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.savetodo = this.savetodo.bind(this)
   }
+
+  componentDidMount(){
+    let self = this
+    console.log("start")
+    $.ajax({
+      url: 'http://localhost:3001/api/import',
+      type: 'POST',
+      header:{
+        'Access-Control-Allow-Origin': '*'
+      },
+      dataType: 'json',
+      traditional: true,
+      processData: true,})
+      .done(function(response) {
+        self.setState({TodoCardList:response})
+      })
+      .fail( function(error) {
+        console.log('error')
+      })
+    }
+    
+savetodo(){
+  console.log("savetodo")
+  console.log(JSON.stringify(this.state.TodoCardList))
+  $.ajax({
+    url: 'http://localhost:3001/api/save',
+    type: 'POST',
+    data: {
+      'todos': JSON.stringify(this.state.TodoCardList)},
+    header:{
+      'Access-Control-Allow-Origin': '*',
+    },
+    dataType: 'json',
+    traditional: true,
+    processData: true,})
+    .done(function(response) {
+      console.log("save_done")
+    })
+    .fail( function(error) {
+      // 실패 시 동작
+      console.log('error')
+    })
+}
+  
   inputTodo(state){
     console.log(this.state)
     const todolist = this.state.TodoCardList
     let todo = {
       num : this.state.currentNum+1,
       title: state.title,
-      date: state.date,
+      date: format(state.date,'MM/dd/yyyy'),
       description: state.description,
       complete: false
     }
     todolist.push(todo)
     this.setState({currentNum: this.state.currentNum+1,TodoCardList: todolist})
+    this.savetodo()
   }
+
 
   editTodo(state){
 
     const todolist = this.state.TodoCardList
     
     this.setState({
-      TodoCardList: todolist.map(todo => todo.num === state.num ? {num:state.num,title: state.title,date: state.date,description:state.description,complete: todo.Iscomplete } : todo)
+      TodoCardList: todolist.map(todo => (todo.num === state.num) ? {num:state.num,title: state.title,date: format(state.date,'MM/dd/yyyy') ,description:state.description,complete: todo.Iscomplete } : todo)
     })
 
 

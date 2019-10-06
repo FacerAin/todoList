@@ -2,7 +2,7 @@ import $ from 'jquery'
 import React from 'react'
 import './TodoCard.css'
 import { makeStyles } from '@material-ui/core/styles';
-import { differenceInCalendarDays, format } from 'date-fns'
+import { differenceInCalendarDays, parse } from 'date-fns'
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -70,13 +70,13 @@ class TodoCard extends React.Component{
                     <p>{this.props.todo.title}</p>
                 </div>
                 <div className="TodoDay">
-                <p>{dayoutput(differenceInCalendarDays(this.today,this.props.todo.date))} </p>
+                <p>{dayoutput(differenceInCalendarDays(this.today,parse(this.props.todo.date,'MM/dd/yyyy',new Date())))} </p>
 
                 </div>
                 </div>
                 <div className="ToggleMenu" ref="ToggleMenu">
                 <div className="TodoDate">
-                   {format(this.props.todo.date,'M/dd')}
+                   {this.props.todo.date}
                     </div>
                     <div className="TodoDescription">
                          <p>{this.props.todo.description}</p>
