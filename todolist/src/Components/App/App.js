@@ -106,7 +106,7 @@ savetodo(){
     this.setState({
       TodoCardList: todolist.map(todo => (todo.num === state.num) ? {num:state.num,title: state.title,date: format(state.date,'MM/dd/yyyy') ,description:state.description,complete: todo.Iscomplete } : todo)
     })
-
+    this.savetodo()
 
   }
 
