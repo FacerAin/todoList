@@ -1,5 +1,7 @@
 /*Todo
-Todo가 비었을 때 예외처리
+Todo가 비었을 때
+삭제 기능
+완료 기능
 */
 import React from 'react';
 import './App.css';
